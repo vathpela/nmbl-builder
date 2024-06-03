@@ -28,8 +28,11 @@ install : $(TARGETS)
 	install -m 0700 -d "$(DESTDIR)$(ESPDIR)"
 	install -m 0600 -t "$(DESTDIR)$(ESPDIR)" $(TARGETS)
 
-nmbl-builder-$(VERSION).tar.xz : Makefile
-	git archive --format=tar --prefix=nmbl-builder-$(VERSION)/ --add-file ../utils.mk HEAD | xz > $@
+nmbl-builder-$(VERSION).tar.xz : Makefile nmbl-builder.spec
+	git archive --format=tar --prefix=nmbl-builder-$(VERSION)/ \
+		--add-file utils.mk \
+		--add-file nmbl-builder.spec \
+		HEAD | xz > $@
 
 tarball : nmbl-builder-$(VERSION).tar.xz
 
